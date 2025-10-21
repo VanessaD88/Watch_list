@@ -1,0 +1,24 @@
+<p>Lists</p>
+
+
+<section class="lists">
+  <h1>Public Watch Lists</h1>
+  <% if @lists.any? %>
+    <div>
+      <% @lists.each do |list| %>
+        <article class="list-card">
+          <h2><%= link_to list.name, list_path(list) %></h2>
+          <% if list.description.present? %>
+            <p><%= truncate(list.description, length: 140) %></p>
+          <% end %>
+          <p>
+            <span><%= list.user.email %></span>
+            <span><%= pluralize(list.bookmarks.size, "movie") %></span>
+          </p>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <p>There are no public lists yet.</p>
+  <% end %>
+</section>
