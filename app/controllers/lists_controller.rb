@@ -20,7 +20,6 @@ class ListsController < ApplicationController
     if @list.save
     redirect_to list_path(@list), notice: "List created."
     else
-
       render :new, status: :unprocessable_entity
     end
   end
