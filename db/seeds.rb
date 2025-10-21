@@ -31,25 +31,4 @@ movies["results"].each do |movie_data|
   )
 end
 
-classics_list = List.find_or_create_by!(name: "Test List") do |list|
-  list.is_public = true
-end
-
-shawshank = Movie.find_by(title: "The Shawshank Redemption")
-godfather = Movie.find_by(title: "The Godfather")
-schindlers = Movie.find_by(title: "Schindler's List")
-
-Bookmark.find_or_create_by!(list: classics_list, movie: shawshank) do |bookmark|
-  bookmark.comment = "My all-time favorite!"
-end
-
-Bookmark.find_or_create_by!(list: classics_list, movie: godfather) do |bookmark|
-  bookmark.comment = "A masterpiece of filmmaking."
-end
-
-Bookmark.find_or_create_by!(list: classics_list, movie: schindlers) do |bookmark|
-  bookmark.comment = "A truly moving and important film."
-end
-
 puts "Created #{Movie.count} movies."
-puts "Created #{List.count} list and #{Bookmark.count} bookmarks."

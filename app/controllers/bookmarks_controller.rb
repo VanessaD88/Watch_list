@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :set_list
-  #before_action :authorize_list_owner!
+  before_action :authorize_list_owner!
 
   def new
     @bookmark = Bookmark.new
