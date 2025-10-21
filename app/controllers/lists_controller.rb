@@ -3,7 +3,7 @@ class ListsController < ApplicationController
   before_action :set_list, only: [:show]
 
   def index
-    @lists=List.all
+    @lists=List.where(is_public: true)
   end
 
   def show
