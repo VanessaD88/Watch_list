@@ -1,19 +1,17 @@
 class ListsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
-  def index
-    @lists = List
-      .includes(:user, :bookmarks)
-      .where(is_public: true)
-      .order(created_at: :desc)
-    render "pages/lists"
-  end
+  before_action :set_list, only: [:show]
+
+   def index
+    @lists=List.all
+    end
 
   def show
-    @list = List
-      .includes(:user, bookmarks: :movie)
-      .where(is_public: true)
-      .find(params[:id])
-    @bookmarks = @list.bookmarks
-    @bookmark = Bookmark.new
   end
+
+  private
+  def set_list
+    @list = List.find(params[:id])
+  end
+
 end
