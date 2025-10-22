@@ -12,21 +12,21 @@ class ListsController < ApplicationController
   end
 
   def show
-
-  def create
-  @list = List.new(list_params)
-  @list.user = current_user
-  if @list.save
-    redirect_to list_path(@list), notice: "List created successfully!"
-  else
-    render :new, status: :unprocessable_entity
+    # Add any necessary code for the show action here
   end
 
-  private
+  def new
+    @list = List.new
+  end
 
-  def authorize_user!
-  unless @list.user == current_user
-    redirect_to lists_path, alert: "You can only edit your own lists!"
+  def create
+    @list = List.new(list_params)
+    @list.user = current_user
+    if @list.save
+      redirect_to list_path(@list), notice: "List created successfully!"
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -46,21 +46,6 @@ class ListsController < ApplicationController
     redirect_to lists_path, notice: "List deleted successfully!"
   end
 
-  def new
-    @list = List.new
-  end
-
-  def create
-    @list = List.new(list_params)
-    @list.user = current_user
-    @list.save
-    if @list.save
-    redirect_to list_path(@list), notice: "List created."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
   private
 
   def set_list
@@ -69,5 +54,11 @@ class ListsController < ApplicationController
 
   def list_params
     params.require(:list).permit(:name, :photo)
+  end
+
+  def authorize_user!
+    unless @list.user == current_user
+      redirect_to lists_path, alert: "You can only edit your own lists!"
+    end
   end
 end
