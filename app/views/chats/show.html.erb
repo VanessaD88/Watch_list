@@ -5,5 +5,5 @@
 
 <% @chat.messages.each do |message| %>
   <p> <%= message.content %> </p>
-  <p> <%= message.role %> </p>
+  <p><strong> - <%= message.role.capitalize %> </strong></p>
 <% end %>
