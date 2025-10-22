@@ -1,0 +1,21 @@
+<h1>Edit <%= @list.name %></h1>
+
+<%= form_with(model: @list, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo %>
+    <%= form.file_field :photo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Update List" %>
+  </div>
+<% end %>
+
+<%= link_to "Back to lists", lists_path %>
+<%= link_to "Delete this list", list_path(@list),
+  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
