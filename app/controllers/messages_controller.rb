@@ -23,12 +23,16 @@ class MessagesController < ApplicationController
     prompt = <<~PROMPT
       You are a helpful movie recommendation assistant.
       Recommend movies based on genres, actors, mood, or themes.
-      Reply naturally and include 2–3 movie suggestions from #{Movie.all.map} if possible.
-    PROMPT
+
+      Use the following list of available movies when making recommendations:
+      #{movie_list}
+
+      Please respond in **bullet points**, with each recommendation on a new line.
+      Include 2–3 movie suggestions and add a short reason why you recommend each.
+      PROMPT
     # Ask AI for a reply
     ai_response = chat_client.with_instructions(prompt).ask(@message.content)
 
-    raise
     # Save AI response as a new message
     @chat.messages.create!(
       content: ai_response.content,
@@ -40,7 +44,8 @@ class MessagesController < ApplicationController
     # create a list/bookmark for the current user and the suggested movies
 
     # Redirect to the chat page
-    redirect_to user_chat_path(current_user, @chat)
+    # redirect_to chat_messages_path(current_user, @chat)
+    redirect_to chat_path(:id)
   end
 
   private

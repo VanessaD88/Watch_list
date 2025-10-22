@@ -1,6 +1,9 @@
 <%= simple_form_for [@chat, @message] do |f| %>
-  <%= f.input :content, label: "Ask a question", required: true %>
+  <%= f.input :content, label: "Ask for a movie recommendation", required: true %>
   <%= f.button :submit, 'Submit', class: 'btn btn-primary' %>
 <% end %>
 
-<%= link_to "Ask for recommendation", new_chat_message_path(@chat), class: "btn btn-primary" %>
+<% @chat.messages.each do |message| %>
+  <p> <%= message.content %> </p>
+  <p><strong> - <%= message.role.capitalize %> </strong></p>
+<% end %>
