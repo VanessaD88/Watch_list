@@ -25,4 +25,10 @@ class BookmarksController < ApplicationController
   def set_list
     @list = List.find(params[:list_id])
   end
+
+  def authorize_list_owner!
+  return if current_user == @list.user
+
+  redirect_to list_path(@list), alert: "You cannot modify, you are not the user."
+end
 end
