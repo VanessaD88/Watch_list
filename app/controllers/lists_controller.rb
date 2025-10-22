@@ -3,7 +3,11 @@ class ListsController < ApplicationController
   before_action :set_list, only: [:show]
 
   def index
-    @lists=List.all
+    if user_signed_in?
+      @lists = List.where("is_public = ? OR user_id = ?", true, current_user.id)
+    else
+      @lists = List.where(is_public: true)
+    end
   end
 
   def show
