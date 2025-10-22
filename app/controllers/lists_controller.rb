@@ -4,7 +4,11 @@ class ListsController < ApplicationController
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
-    @lists=List.all
+    if user_signed_in?
+      @lists = List.where("is_public = ? OR user_id = ?", true, current_user.id)
+    else
+      @lists = List.where(is_public: true)
+    end
   end
 
   def show
@@ -40,6 +44,21 @@ class ListsController < ApplicationController
   def destroy
     @list.destroy
     redirect_to lists_path, notice: "List deleted successfully!"
+  end
+
+  def new
+    @list = List.new
+  end
+
+  def create
+    @list = List.new(list_params)
+    @list.user = current_user
+    @list.save
+    if @list.save
+    redirect_to list_path(@list), notice: "List created."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private

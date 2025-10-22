@@ -44,7 +44,14 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# for Authentication
 gem "devise"
+
+# for the seed database
+gem 'faker'
+
+# gem for llm's like OpenAI
+gem "ruby_llm"
 
 gem "bootstrap", "~> 5.3"
 gem "autoprefixer-rails"
