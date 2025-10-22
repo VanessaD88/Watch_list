@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
+  get "/my_lists", to: "pages#my_lists"
+
   resources :lists do
     resources :bookmarks, only: [:new, :create]
   end
