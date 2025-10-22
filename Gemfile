@@ -50,6 +50,9 @@ gem "devise"
 # for the seed database
 gem 'faker'
 
+# gem for llm's like OpenAI
+gem "ruby_llm"
+
 gem "bootstrap", "~> 5.3"
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"

@@ -4,6 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :chats
+  has_one :chat, dependent: :destroy
   has_many :lists
+
+  after_create :generate_chat
+
+  def generate_chat
+    Chat.create(user: self, title: "AI chat")
+  end
 end
