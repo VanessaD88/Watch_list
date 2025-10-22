@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :set_list
+  before_action :set_list, only: [:new, :create]
   before_action :authorize_list_owner!
 
   def new
@@ -14,6 +14,12 @@ class BookmarksController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @bookmark = Bookmark.find(params[:id])
+    @bookmark.destroy
+    redirect_to list_path(@bookmark.list), notice: "Movie removed from list."
   end
 
   private
