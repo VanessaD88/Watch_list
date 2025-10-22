@@ -6,9 +6,8 @@ Rails.application.routes.draw do
     resources :bookmarks, only: [:new, :create, :destroy]
   end
 
-  resources :users do
-    resources :chats, only: [:index, :show, :create, :new] do
-      resources :messages, only: [:new, :create]
-    end
+  resources :chats, only: [:show] do
+    resources :messages, only: [:new, :create]
   end
+
 end

@@ -27,10 +27,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_20_152730) do
   create_table "chats", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
-    t.bigint "favorite_list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["favorite_list_id"], name: "index_chats_on_favorite_list_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
@@ -86,7 +84,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_20_152730) do
 
   add_foreign_key "bookmarks", "lists"
   add_foreign_key "bookmarks", "movies"
-  add_foreign_key "chats", "favorite_lists"
   add_foreign_key "chats", "users"
   add_foreign_key "favorite_lists", "lists"
   add_foreign_key "favorite_lists", "users"
