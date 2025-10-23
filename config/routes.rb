@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
   resources :bookmarks, only: :destroy
 
-  resources :chats, only: [:show] do
+  resources :chats, only: [:index] do
     resources :messages, only: [:new, :create]
   end
 

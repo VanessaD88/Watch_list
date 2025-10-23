@@ -39,13 +39,27 @@ class MessagesController < ApplicationController
       role: "assistant"
     )
 
-    # get the AI to respond with a list of movies titles from your db
     # use the movies title to find the corrsponding instance in the db
-    # create a list/bookmark for the current user and the suggested movies
+    titles = ai_response.content.scan(/\*\*(.*?)\*\*/).flatten # responds with array of movie titles
+    movies = titles.map do |title|
+      Movie.where("title ILIKE ?", "%#{title}%")
+    end.flatten
 
-    # Redirect to the chat page
-    # redirect_to chat_messages_path(current_user, @chat)
-    redirect_to chat_path(:id)
+    # create a list/bookmark for the current user and the suggested movies
+    # Find or create the Recommendations list for the current user
+    recommendations_list = List.find_by(name: "Recommendations", user: current_user)
+    if recommendations_list.nil?
+      recommendations_list = List.create!(name: "Recommendations", user: current_user)
+    end
+
+    movies.each do |movie|
+      Bookmark.create!(
+        list: recommendations_list,
+        movie: movie,
+      )
+    end
+
+    redirect_to chats_path
   end
 
   private
