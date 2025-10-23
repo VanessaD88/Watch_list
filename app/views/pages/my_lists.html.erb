@@ -1,35 +1,52 @@
-<section class="my-lists">
-  <h1>My Watch Lists</h1>
+<section class="lists">
+  <div class="lists-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <h1>My Watch Lists</h1>
+    <div class="lists-actions" style="display: flex; gap: 0.5rem;">
+      <%= link_to "➕ New List", new_list_path, class: "btn btn-primary" %>
+      <%= link_to "All Lists", lists_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+
   <% if @lists.any? %>
-    <% @lists.each do |list| %>
-          <h2><%= list.name %></h2>
+    <div class="list-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+      <% @lists.each do |list| %>
+        <article class="list-card">
+          <h2><%= link_to list.name, list_path(list) %></h2>
+
           <% if list.description.present? %>
-            <p><%= list.description %></p>
+            <p><%= truncate(list.description, length: 140) %></p>
           <% end %>
-        <% if list.bookmarks.any? %>
-          <div>
-            <% list.bookmarks.each do |bookmark| %>
-              <% movie = bookmark.movie %>
-                <% if movie.poster_url.present? %>
-                  <div class="poster">
-                    <%= image_tag movie.poster_url, alt: "#{movie.title} poster" %>
-                  </div>
-                <% end %>
-                <div>
+
+          <% if list.bookmarks.any? %>
+            <div class="bookmark-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
+              <% list.bookmarks.each do |bookmark| %>
+                <% movie = bookmark.movie %>
+                <div class="bookmark-card">
+                  <% if movie.poster_url.present? %>
+                    <%= image_tag movie.poster_url, alt: "#{movie.title} poster", class: "poster-img" %>
+                  <% end %>
                   <h3><%= movie.title %></h3>
                   <% if bookmark.comment.present? %>
-                    <p>Comment: <%= bookmark.comment %></p>
+                    <p class="bookmark-comment"><em><%= bookmark.comment %></em></p>
                   <% end %>
                 </div>
-             <%= link_to "Add a movie to this list", new_list_bookmark_path(list), class: "btn btn-success" %>
-            <% end %>
-          </div>
-        <% else %>
-          <p>This list has no movies yet.</p>
+              <% end %>
+            </div>
+          <% else %>
+            <p>This list has no movies yet.</p>
+          <% end %>
 
-        <% end %>
-    <% end %>
+          <div class="list-card-actions" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <%= link_to "✏️ Edit", edit_list_path(list), class: "btn btn-secondary" %>
+            <%= link_to "🗑 Delete", list_path(list),
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                  class: "btn btn-danger" %>
+            <%= link_to "➕ Add Movie", new_list_bookmark_path(list), class: "btn btn-success" %>
+          </div>
+        </article>
+      <% end %>
+    </div>
   <% else %>
-    <p>You have not created any lists yet.</p>
+    <p>You have not created any lists yet. <%= link_to "Create one now", new_list_path %>!</p>
   <% end %>
 </section>
