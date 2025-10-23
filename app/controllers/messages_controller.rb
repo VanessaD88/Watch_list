@@ -28,7 +28,7 @@ class MessagesController < ApplicationController
     Suggest 3 films tailored to the user’s requested genres, actors, mood, or themes. Recommend only titles from the catalog below.
     Available movies: #{movie_list}
     The user already has these movies in their lists: #{user_list_movies}
-    Respond with bullet points only. Each bullet must contain one movie title from the catalog plus a concise reason for the recommendation.
+    Respond with bullet points only. Each bullet must start and end with ** and contain one movie title from the catalog using the keyword "Title:" plus a concise reason for the recommendation.
     Avoid suggesting movies the user already has unless they explicitly request a rewatch.
       PROMPT
     # Ask AI for a reply
