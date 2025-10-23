@@ -1,3 +1,13 @@
+<% if @list.errors.any? %>
+  <div class="alert">
+    <ul>
+      <% @list.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model:@list do |f|%>
   <%=f.label :name%>
   <%= f.text_field :name %>
