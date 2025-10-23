@@ -17,11 +17,9 @@
              <p><%= bookmark.movie.overview %></p>
           </div>
           <div class="card-trip-actions">
-            <% if current_user == @list.user %>
               <%= link_to "Edit this list", edit_list_path(@list)%>
               <%= link_to "Delete this list", list_path(@list),
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-              <% end %>
             <%# <%= link_to "Delete", bookmark_path(@list, bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %> %>
           </div>
         </div>
