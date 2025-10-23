@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
@@ -23,7 +23,7 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     @list.user = current_user
     if @list.save
-      redirect_to list_path(@list), notice: "List created successfully!"
+      redirect_to lists_path, notice: "List created successfully!"
     else
       render :new, status: :unprocessable_entity
     end
