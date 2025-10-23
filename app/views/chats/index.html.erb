@@ -26,7 +26,7 @@
   </div>  -->
 
   <!-- chat -->
-  <div class="chat-container">
+  <div class="chat-container" data-controller="chat" data-chat-target="container">
     <% @chat.messages.each do |message| %>
       <div class="message <%= message.role == 'user' ? 'user-message' : 'ai-message' %>">
         <div class="message-content">

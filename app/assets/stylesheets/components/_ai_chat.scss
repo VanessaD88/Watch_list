@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-top: 60px;
+  padding-top: 80px;
   padding-bottom: 60px; /* leave space for the fixed form */
   max-height: calc(100vh - 120px);
   overflow-y: auto;
@@ -20,6 +20,7 @@
 .message {
   display: flex;
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .user-message {
