@@ -1,22 +1,33 @@
 <p>Lists</p>
 
 <section class="lists">
-  <h1>Public Watch Lists</h1>
+  <div class="lists-header">
+    <h1>Public Watch Lists</h1>
+
+    <% if user_signed_in? %>
+      <%= link_to "➕ New List", new_list_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
   <% if @lists.any? %>
-    <div>
+    <div class="list-grid">
       <% @lists.each do |list| %>
         <article class="list-card">
           <h2><%= link_to list.name, list_path(list) %></h2>
+
           <% if list.description.present? %>
             <p><%= truncate(list.description, length: 140) %></p>
           <% end %>
+
           <p>
             <span><%= pluralize(list.bookmarks.size, "movie") %></span>
           </p>
+
           <% if current_user == list.user %>
-            <%= link_to "Edit", edit_list_path(list) %>
+            <%= link_to "Edit", edit_list_path(list), class: "btn btn-secondary" %>
             <%= link_to "Delete", list_path(list),
-              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+              class: "btn btn-danger" %>
           <% end %>
         </article>
       <% end %>
