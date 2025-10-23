@@ -18,17 +18,18 @@ class MessagesController < ApplicationController
     chat_client = RubyLLM.chat
 
     movie_list = Movie.all.map {|movie| movie.title}.join(", ")
+    user_list_movies =  user_list_movies = current_user.lists
+      .flat_map { |list| list.bookmarks.map { |bookmark| bookmark.movie&.title } }
+      .join(", ")
 
     # Build AI prompt
     prompt = <<~PROMPT
-      You are a helpful movie recommendation assistant.
-      Recommend movies based on genres, actors, mood, or themes.
-
-      Use the following list of available movies when making recommendations:
-      #{movie_list}
-
-      Please respond in **bullet points**, with each recommendation on a new line.
-      Include 2–3 movie suggestions and add a short reason why you recommend each.
+    You are a movie recommendation assistant.
+    Suggest 3 films tailored to the user’s requested genres, actors, mood, or themes. Recommend only titles from the catalog below.
+    Available movies: #{movie_list}
+    The user already has these movies in their lists: #{user_list_movies}
+    Respond with bullet points only. Each bullet must contain one movie title from the catalog plus a concise reason for the recommendation.
+    Avoid suggesting movies the user already has unless they explicitly request a rewatch.
       PROMPT
     # Ask AI for a reply
     ai_response = chat_client.with_instructions(prompt).ask(@message.content)
