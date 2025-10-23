@@ -30,7 +30,8 @@ class MessagesController < ApplicationController
     The user already has these movies in their lists: #{user_list_movies}
     Respond with bullet points only. Each bullet must start and end with ** and contain one movie title from the catalog using the keyword "Title:" plus a concise reason for the recommendation.
     Avoid suggesting movies the user already has unless they explicitly request a rewatch.
-      PROMPT
+    At the end of every message add: "Your movie has been added to the recommendation list"
+    PROMPT
     # Ask AI for a reply
     ai_response = chat_client.with_instructions(prompt).ask(@message.content)
 
