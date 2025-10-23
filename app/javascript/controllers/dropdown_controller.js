@@ -9,6 +9,8 @@ export default class extends Controller {
 
   toggle(event) {
     event.preventDefault()
+    
+
     this.menuTarget.classList.toggle("d-none")
 
     if (!this.menuTarget.classList.contains("d-none")) {
