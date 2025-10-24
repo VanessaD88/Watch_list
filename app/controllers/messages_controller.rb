@@ -49,20 +49,20 @@ class MessagesController < ApplicationController
     )
 
     # use the movies title to find the corrsponding instance in the db
-    titles = ai_response.content.scan(/\*\*(.*?)\*\*/).flatten # responds with array of movie titles
+    titles = ai_response.content.scan(/\*\*Title:\s*(.*?)\:\*\*/).flatten # responds with array of movie titles
     movies = titles.map do |title|
       Movie.where("title ILIKE ?", "%#{title}%")
     end.flatten
 
     # create a list/bookmark for the current user and the suggested movies
     # Find or create the Recommendations list for the current user
-    recommendations_list = List.find_by(name: "Recommendations", user: current_user)
+    recommendations_list = current_user.lists.find_or_create_by!(name: "Recommendations")
     if recommendations_list.nil?
       recommendations_list = List.create!(name: "Recommendations", user: current_user)
     end
 
     movies.each do |movie|
-      Bookmark.create!(
+      Bookmark.find_or_create_by!(
         list: recommendations_list,
         movie: movie,
       )
