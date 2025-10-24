@@ -1,24 +1,43 @@
-<!-- form -> add classes and css later to fix the form on the bottom -->
-<div>
-  <%= simple_form_for [@chat, @message] do |f| %>
-    <%= f.input :content, label: "Ask for a movie recommendation", required: true %>
-    <%= f.button :submit, 'Submit', class: 'btn btn-primary' %>
-  <% end %>
-</div>
-
-<!-- info and maybe link to the recommended list-->
-<div>
-  <p> ➤ The Movies will be added to your Recommendations list  </p>
-</div>
-
-<!-- chat -->
-<div class="chat-window">
-  <% @chat.messages.reverse.each do |message| %>
-    <% if message.role == "user" %>
-      <p><strong> - My request ( <%= message.created_at %> )</strong></p>
-    <% else %>
-      <p><strong> - Respond </strong></p>
+<div class="chat-page">
+  <!-- form -->
+  <div class="chat-form">
+    <%= simple_form_for [@chat, @message] do |f| %>
+      <%= f.input :content, placeholder: "Ask for a movie recommendation, they will be added to your list.", label: false, required: true %>
+      <%= f.button :submit, 'Submit', class: 'btn btn-primary' %>
     <% end %>
-    <p> <%= message.content %> </p>
-  <% end %>
+  </div>
+
+  <!-- chat -->
+  <!-- <div class="chat-container">
+    <% @chat.messages.each do |message| %>
+      <div class="message">
+        <div class="message-user">
+          <% if message.role == "user" %>
+            <p><strong> - My request ( <%= message.created_at %> )</strong></p>
+        </div>
+        <div class="message-assistant">
+        <% else %>
+          <p><strong> - Respond </strong></p>
+        <% end %>
+        <p> <%= message.content %> </p>
+        </div>
+      </div>
+    <% end %>
+  </div>  -->
+
+  <!-- chat -->
+  <div class="chat-container" data-controller="chat" data-chat-target="container">
+    <% @chat.messages.each do |message| %>
+      <div class="message <%= message.role == 'user' ? 'user-message' : 'ai-message' %>">
+        <div class="message-content">
+          <% if message.role == "user" %>
+            <p class="message-meta">You • <%= message.created_at.strftime("%H:%M") %></p>
+          <% else %>
+            <p class="message-meta">AI • <%= message.created_at.strftime("%H:%M") %></p>
+          <% end %>
+          <p><%= message.content %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
