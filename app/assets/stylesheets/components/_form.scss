@@ -1,0 +1,148 @@
+.form-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+    color: #222;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: #8b0000; /* dark red focus */
+        box-shadow: 0 0 5px rgba(139,0,0,0.3);
+      }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #444;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &.btn-primary {
+      background-color: #8b0000;
+      color: white;
+
+      &:hover {
+        background-color: #a30000;
+      }
+    }
+
+    &.btn-secondary {
+      background-color: #555;
+      color: white;
+
+      &:hover {
+        background-color: #777;
+      }
+    }
+  }
+}
+
+/* Overlay & modal */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.form-popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 600px; /* make the modal wider */
+  max-width: 90%; /* responsive on small screens */
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Review form container */
+.review-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin:20px ;
+}
+
+.new-review textarea {
+  width: 100%;          /* full width of modal */
+  min-width: 500px;     /* wider input field */
+  max-width: 100%;      /* responsive */
+  border-radius: 5px;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* Center the submit button */
+.new-review .form-actions {
+  display: flex;
+  justify-content: center;  /* center button horizontally */
+  margin-top: 1rem;
+}
+
+.reviews-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center all child elements horizontally */
+  gap: 1rem;           /* space between reviews */
+}
+
+.reviews-section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.review-card p {
+  text-align: center;
+  margin: 0; /* optional, remove default paragraph margin */
+}
