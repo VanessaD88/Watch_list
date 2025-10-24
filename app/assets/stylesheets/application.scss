@@ -11,6 +11,45 @@
 @import "components/index";
 @import "pages/index";
 @import "components/ai_chat";
+@import "components/form";
 
 // Google Font Playfair Display and Lato
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+.hero-banner {
+  background: image-url("movie_banner.jpg") center/cover no-repeat;
+  height: 80vh;
+  position: relative;
+}
+
+.hero-banner .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  max-width: 700px;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* start below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* end at normal position */
+  }
+}
+
+.container.slide-in {
+  animation: slideUpFadeIn 0.8s ease-out forwards;
+  animation-delay: 0.5s; /* half a second delay */
+}
+
+/* Hero banner zoom effect */
+.banner img {
+  transform: scale(1);
+  transition: transform 2s ease-out; /* smooth zoom over 2 seconds */
+}
+
+.banner img.zoomed {
+  transform: scale(1.05); /* zoom in slightly */
+}
