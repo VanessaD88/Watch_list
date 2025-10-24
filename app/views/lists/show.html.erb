@@ -1,33 +1,41 @@
-<div class = "show-page">
-  <h2><%= @list.name%></h2>
-  <p><%= @list.description%></p>
- <div class="row">
-    <% @list.bookmarks.each do |bookmark| %>
-      <div class="col-12 col-sm-6 col-md-4 mb-4">
-        <%# This is the merged card component %>
-        <div class="card-trip">
-          <%= image_tag bookmark.movie.poster_url, class: "card-img-top" %>
-          <div class="card-trip-infos">
-            <div>
-              <h2><%= bookmark.movie.title %></h2>
-              <p><em>"<%= bookmark.comment %>"</em></p>
-            </div>
-            <h2 class="card-trip-pricing">⭐ <%= bookmark.movie.rating %></h2>
-          </div>
-          <div class="card-trip-overview">
-             <p><%= bookmark.movie.overview %></p>
-          </div>
-        </div>
+<h2 style="text-align: center; padding: 20px;"><%= @list.name %></h2>
+<div class = "bookmarks-grid">
+  <% @list.bookmarks.each do |bookmark| %>
+    <div class="bookmark-card">
+      <% if bookmark.movie.poster_url.present? %>
+      <img src="<%= bookmark.movie.poster_url %>" alt="<%= bookmark.movie.title %>" class="poster">
+      <% else %>
+      <img src="<%= image_path('default.jpg') %>" alt="Default poster" class="poster">
+      <% end %>
+      <div class="bookmark-info">
+        <h3><%= bookmark.movie.title %></h3>
+        <p class="overview"><%= truncate(bookmark.movie.overview, length: 120) %></p>
+        <p class="rating"><strong>⭐ <%= bookmark.movie.rating %></strong></p>
+        <% if bookmark.comment.present? %>
+          <p class="comment"><em>"<%= bookmark.comment %>"</em></p>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-  <%= link_to "Add a movie to this list", new_list_bookmark_path(@list), class: "btn btn-success" %>
+      <!-- Delete icon in bottom-right corner -->
+      <%= link_to bookmark_path(bookmark),
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                  class: "delete-icon" do %>
+        <i class="fa-solid fa-trash"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="btn-container" style="text-align: center; padding: 10px;">
   <% if @list.user.id == current_user.id %>
-            <div class="card-trip-actions">
-              <%= link_to "Edit this list", edit_list_path(@list)%>
-              <%= link_to "Delete this list", list_path(@list),
-                data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-            </div>
-          <%end%>
-  <%= link_to "Back to all lists", lists_path %>
+    <%= link_to "Add a movie to this list", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+  <%end%>
+</div>
+<div class="btn-container" style="text-align: center; padding: 10px;">
+  <div class="form-actions">
+    <% if @list.user.id == current_user.id %>
+      <%= link_to "Edit this list", edit_list_path(@list),class: "btn btn-secondary" %>
+      <%= link_to "Delete this list", list_path(@list),
+      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },  class: "btn btn-secondary" %>
+    <%end%>
+  </div>
 </div>
