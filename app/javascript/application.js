@@ -3,3 +3,12 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
+
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = document.querySelector(".banner img");
+  if (banner) {
+    setTimeout(() => {
+      banner.classList.add("zoomed");
+    }, 200); // start zoom shortly after page loads
+  }
+});
