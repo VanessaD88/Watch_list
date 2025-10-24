@@ -1,6 +1,16 @@
 .navbar-lewagon {
   justify-content: space-between;
   background: white;
+  position: fixed;        /* Fixes navbar at the top */
+  top: 0;
+  left: 0;
+  width: 100%;            /* Full width of viewport */
+  height: 60px;           /* Adjust as needed */
+  z-index: 100;           /* Make sure it’s above other elements */
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .navbar-lewagon .navbar-collapse {
