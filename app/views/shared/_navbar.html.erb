@@ -11,20 +11,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <%= link_to "All lists", lists_path, class: "nav-link" %>
+          <%= link_to "Browse Lists", lists_path, class: "nav-link" %>
         </li>
         <% if user_signed_in? %>
-          <li class="nav-item">
+          <li class="nav-item mx-2">
             <%= link_to "AI Agent", chats_path, class: "nav-link" %>
           </li>
-          <li class="nav-item dropdown" data-controller="dropdown">
+          <li class="nav-item dropdown mx-2" data-controller="dropdown">
             <button type="button" data-action="click->dropdown#toggle" class="avatar border-0 bg-transparent p-0">
               <%= image_tag "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png", class: "avatar" %>
             </button>
-              <ul data-dropdown-target="menu" class="list-unstyled position-absolute bg-white border mt-2 p-2 d-none" style="top: 100%; right: 5px; min-width: 150px; z-index: 1000;">
-                <li><%= link_to "My lists", lists_path, class: "dropdown-item" %></li>
-                <li><%= link_to "Recommendations", "#", class: "dropdown-item" %></li>
-                <li><%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %></li>
+              <ul data-dropdown-target="menu" class="list-unstyled position-absolute bg-white shadow-lg border-0 mt-2 p-2 d-none" style="top: 100%; right: 5px; min-width: 150px; z-index: 1000;">
+                <li><%= link_to "My lists", my_lists_path, class: "dropdown-item px-3 py-2" %></li>
+                <% recommendations_list = List.find_by(name: "Recommendations", user: current_user) %>
+                <li><%= link_to "Recommendations", list_path(recommendations_list), class: "dropdown-item px-3 py-2" %></li>
+                <li><%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item px-3 py-2" %></li>
               </ul>
           </li>
         <% else %>
