@@ -1,0 +1,16 @@
+.hero_banner-container {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.hero_banner-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
