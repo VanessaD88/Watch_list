@@ -13,6 +13,11 @@ class MessagesController < ApplicationController
       content: params[:message][:content],
       role: "user"
     )
+    # build conversation context from all previous messages
+    conversation_history = @chat.messages.order(:created_at).map do |msg|
+      "#{msg.role.capitalize}: #{msg.content}"
+    end.join("\n")
+    # (This gives the AI the full back-and-forth history)
 
     # Prepare AI chat
     chat_client = RubyLLM.chat
@@ -31,10 +36,12 @@ class MessagesController < ApplicationController
     Respond with bullet points only. Each bullet must start and end with ** and contain one movie title from the catalog using the keyword "Title:" plus a concise reason for the recommendation.
     Avoid suggesting movies the user already has unless they explicitly request a rewatch.
     At the end of every message add: "Your movie has been added to the recommendation list"
+      The next user message is:
+      #{@message.content}
     PROMPT
     # Ask AI for a reply
-    ai_response = chat_client.with_instructions(prompt).ask(@message.content)
-
+    # ai_response = chat_client.with_instructions(prompt).ask(@message.content)
+    ai_response = chat_client.ask(prompt)
     # Save AI response as a new message
     @chat.messages.create!(
       content: ai_response.content,
@@ -61,12 +68,12 @@ class MessagesController < ApplicationController
       )
     end
 
-    redirect_to chats_path
+    redirect_to chats_path(@chat)
   end
 
   private
 
   def set_chat
-    @chat = current_user.chat
+    @chat = current_user.chat || current_user.create_chat
   end
 end
