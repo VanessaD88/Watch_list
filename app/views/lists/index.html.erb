@@ -24,7 +24,7 @@
             <span><%= pluralize(list.bookmarks.size, "movie") %></span>
           </p>
 
-          <% if current_user == list.user %>
+          <% if user_signed_in? && list.user_id == current_user.id %>
             <%= link_to "Edit", edit_list_path(list), class: "btn btn-secondary" %>
             <%= link_to "🗑 Delete this list", list_path(list),
               data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
