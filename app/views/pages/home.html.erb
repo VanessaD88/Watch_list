@@ -1,7 +1,8 @@
 <div class="banner text-center mb-5">
-  <%= image_tag "movie_banner.jpg",alt: "Movie Banner",class: "img-fluid rounded-4 shadow" %>
+  <%= image_tag "movie_banner.jpg", alt: "Movie Banner", class: "banner-img" %>
 </div>
-<div class="container text-center py-5 slide-in">
+
+<div class="hero_banner-container text-center py-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-lg border-0 p-4 rounded-4">
@@ -9,6 +10,7 @@
           <h1 class="display-4 fw-bold mb-3">Discover and Share Your Favorite Movie Lists</h1>
           <p class="lead text-muted mb-4">
             Keep track of what you love — and what to watch next.
+          </p>
           <div class="d-flex justify-content-center gap-3 mt-4">
             <%= link_to "Browse Lists", lists_path, class: "btn btn-primary btn-lg px-4" %>
             <%= link_to "Register / Log In", new_user_session_path, class: "btn btn-outline-secondary btn-lg px-4" %>
