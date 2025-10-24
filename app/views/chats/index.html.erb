@@ -2,7 +2,7 @@
   <!-- form -->
   <div class="chat-form">
     <%= simple_form_for [@chat, @message] do |f| %>
-      <%= f.input :content, placeholder: "Ask for a movie recommendation, they will be added to your list.", label: false, required: true %>
+      <%= f.input :content, placeholder: "Ask for a movie recommendation, that will be added to your list.", label: false, required: true %>
       <%= f.button :submit, 'Submit', class: 'btn btn-primary' %>
     <% end %>
   </div>
