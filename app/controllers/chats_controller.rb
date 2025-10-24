@@ -1,9 +1,10 @@
 class ChatsController < ApplicationController
 
   def index
-    @chat = current_user.chat
+    @chat = current_user.chat || current_user.create_chat
     @message = Message.new
   end
+
 
   private
 

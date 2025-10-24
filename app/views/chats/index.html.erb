@@ -12,7 +12,7 @@
 </div>
 
 <!-- chat -->
-<div>
+<div class="chat-window">
   <% @chat.messages.reverse.each do |message| %>
     <% if message.role == "user" %>
       <p><strong> - My request ( <%= message.created_at %> )</strong></p>
