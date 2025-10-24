@@ -1,6 +1,24 @@
 .avatar {
   width: 40px;
   border-radius: 50%;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $danger; // uses Bootstrap's color variable
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease-in-out;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
 }
 .avatar-large {
   width: 56px;
