@@ -1,23 +1,25 @@
-<p>Lists</p>
-
 <section class="lists">
-  <div class="lists-header">
-    <h1>Public Watch Lists</h1>
+  <div class="lists-header p-4 m-4 rounded-4 text-center" style="margin-top: 1rem;">
+    <div class="col-12">
+      <h1 class="text-center mb-4">Public Watch Lists</h1>
+    </div>
 
     <% if user_signed_in? %>
+    <div class="d-flex justify-content-center gap-3">
       <%= link_to "➕ New List", new_list_path, class: "btn btn-primary" %>
       <%= link_to "📋 My Lists", my_lists_path, class: "btn btn-secondary" %>
+    </div>
     <% end %>
   </div>
 
   <% if @lists.any? %>
     <div class="list-grid">
       <% @lists.each do |list| %>
-        <article class="list-card">
+        <article class="list-card shadow-lg border-0 p-4 m-4 rounded-4">
           <h2><%= link_to list.name, list_path(list) %></h2>
 
           <% if list.description.present? %>
-            <p><%= truncate(list.description, length: 140) %></p>
+            <p class="fst-italic"><%= truncate(list.description, length: 140) %></p>
           <% end %>
 
           <p>
